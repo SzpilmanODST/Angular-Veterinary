@@ -1,0 +1,78 @@
+<h2 class="mb-5">
+    @if(petOwner) {
+        Editar dueño
+    } @else {
+        Registrar dueño
+    }
+</h2>
+
+<div class="w-50 mx-auto">
+    
+    @if(form) {
+        
+        @if(errors.length) {
+            <div class="alert alert-danger">
+                <ul>
+                    @for (error of errors; track error) {
+                        <li>{{ error }}</li>
+                    }
+                </ul>
+            </div>
+        }
+
+        <form [formGroup]="form" (ngSubmit)="save()" class="border rounded p-3">
+            <div class="mb-3">
+                <label for="name" class="mb-1 form-label">Nombre</label>
+                <input class="form-control" id="name" name="name" type="text" placeholder="Escribir nombre" formControlName="name">
+    
+                <!-- 
+                @if(form.get('name')?.hasError('required')) {
+                    <p class="invalid-feedback d-block">El campo nombre es obligatorio</p>
+                }
+                -->
+            </div>
+    
+            <div class="mb-3">
+                <label for="lastName" class="mb-1 form-label">Apellido</label>
+                <input class="form-control" id="lastName" name="lastName" type="text" placeholder="Escribir apellido" formControlName="lastName">
+    
+                @if(form.get('lastName')?.hasError('required')) {
+                    <p class="invalid-feedback d-block">El campo apellido es obligatorio</p>
+                }
+            </div>
+    
+            <div class="mb-3">
+                <label for="cellphone" class="mb-1 form-label">Celular</label>
+                <input class="form-control" id="cellphone" name="cellphone" type="text" placeholder="Escribir celular" formControlName="cellphone">
+    
+                @if(form.get('cellphone')?.hasError('required')) {
+                    <p class="invalid-feedback d-block">El campo celular es obligatorio</p>
+                }
+            </div>
+    
+            <div class="mb-3">
+                <label for="email" class="mb-1 form-label">Correo electrónico</label>
+                <input class="form-control" id="email" name="email" type="email" placeholder="Escribir correo" formControlName="email">
+    
+                @if(form.get('email')?.hasError('required')) {
+                    <p class="invalid-feedback d-block">El campo correo electronico es obligatorio</p>
+                }
+            </div>
+    
+            <div class="text-end">
+                <button type="submit" class="btn btn-light me-3" routerLink="/petOwnerList">
+                    Cancelar
+                </button>
+    
+                <button class="btn btn-primary">
+                    @if(petOwner) {
+                        Editar dueño
+                    } @else {
+                        Registrar dueño
+                    }
+                </button>
+            </div>
+        </form>
+    }
+    
+</div>

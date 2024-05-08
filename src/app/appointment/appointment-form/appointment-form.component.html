@@ -1,0 +1,58 @@
+<h2 class="mb-5">
+    @if (appointment) {
+        Editar cita
+    } @else {
+        Nueva cita
+    } 
+</h2>
+
+
+<div class="w-50 mx-auto">
+
+    @if(form) {
+
+        @if(errors.length) {
+            <div class="alert alert-danger">
+                <ul>
+                    @for (error of errors; track error) {
+                        <li>{{ error }}</li>
+                    }
+                </ul>
+            </div>
+        }
+        
+        <form [formGroup]="form" (ngSubmit)="save()" class="border rounded p-3">
+            <div class="mb-3">
+                <label for="dayAndHour" class="mb-1 form-label">Día y hora</label>
+                <input id="dayAndHour" name="dayAndHour" type="datetime-local" placeholder="Dia y hora" class="form-control" formControlName="dayAndHour">
+
+                @if(form.get('dayAndHour')?.hasError('required')) {
+                    <p class="invalid-feedback d-block">El campo día y hora es obligatorio</p>
+                }
+            </div>
+            
+            <div class="col-md-6">
+                <label for="id" class="mb-1 form-label">Dueño de mascota</label>
+                <ng-select formControlName="petOwner" [items]="petOwners" bindLabel="cellphone" bindValue="id" placeholder="-- Buscar numero telefonico --"></ng-select>
+
+                @if(form.get('petOwner')?.hasError('required')) {
+                    <p class="invalid-feedback d-block">El campo dueño de mascota es obligatorio</p>
+                }
+            </div> 
+        
+            <div class="text-end">
+                <button type="submit" class="btn btn-light me-3" routerLink="/">
+                    Cancelar
+                </button>
+        
+                <button class="btn btn-primary">
+                    @if(appointment) {
+                        Actualizar
+                    } @else {
+                        Crear cita
+                    } 
+                </button>
+            </div>
+        </form>
+    }
+</div>

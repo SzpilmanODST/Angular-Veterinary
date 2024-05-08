@@ -1,0 +1,98 @@
+@if(detailsPetOwner == "detailsPetOwner-Appointments") {
+    <h2 class="mb-5">Citas del dueño</h2>
+
+} @else if(detailsPetOwner == "detailsPetOwner-Pets") {
+    <h2 class="mb-5">Mascotas del dueño</h2>
+
+} @else {
+    <h2 class="mb-5">Datos del dueño</h2>
+
+}
+
+
+<div>
+    <div class="d-flex flex-row">
+        <p class="me-2">
+            <b>Nombre y apellido:</b>
+        </p>
+        <p>{{ petOwner?.name + " " + petOwner?.lastName }}</p>
+    </div>
+    <div class="d-flex flex-row">
+        <p class="me-2">
+            <b>Celular:</b>
+        </p>
+        <p>{{ petOwner?.cellphone }}</p>
+    </div>
+    <div class="d-flex flex-row">
+        <p class="me-2">
+            <b>Correo electronico:</b>
+        </p>
+        <p>{{ petOwner?.email }}</p>
+    </div>
+</div>
+
+
+@if(detailsPetOwner == "detailsPetOwner-Appointments") {
+
+    <div class="d-flex flex-row">
+        <p class="me-2">
+            <b>Citas medicas:</b>
+        </p>
+    </div>
+
+    <table class="table table-striped table-bordered w-50">
+        <thead>
+            <tr>
+                <th>id</th>
+                <th>Dia y hora</th>
+                <th>Prescripcion</th>
+            </tr>
+        </thead>
+        <tbody>
+            @for (appointment of petOwner?.appointments; track appointment.id) {
+                <tr>
+                    <td>{{ appointment.id }}</td>
+                    <td>{{ appointment.dayAndHour }}</td>
+                    <td><a [routerLink]="['/', appointment?.id, 'detailsPrescription']" class="btn btn-secondary">Ver</a></td>
+                </tr>
+            }
+        </tbody>
+    </table>
+
+} @else if(detailsPetOwner == "detailsPetOwner-Pets") {
+
+    <div class="d-flex flex-row">
+        <p class="me-2">
+            <b>Mascotas:</b>
+        </p>
+    </div>
+
+    <table class="table table-striped table-bordered w-50">
+        <thead>
+            <tr>
+                <th>id</th>
+                <th>Nombre</th>
+                <th>Genero</th>
+                <th>Especie</th>
+                <th>Raza</th>
+                <th>Edad</th>
+                <th>Peso</th>
+                <th>Detalles</th>
+            </tr>
+        </thead>
+        <tbody>
+            @for (pet of petOwner?.pets; track pet.id) {
+                <tr>
+                    <td>{{ pet.id }}</td>
+                    <td>{{ pet.name }}</td>
+                    <td>{{ pet.gender }}</td>
+                    <td>{{ pet.species }}</td>
+                    <td>{{ pet.breed }}</td>
+                    <td>{{ pet.age }}</td>
+                    <td>{{ pet.weight }}</td>
+                    <td><a [routerLink]="['/', pet.id, 'detailsPet']" class="btn btn-secondary">Ver</a></td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}

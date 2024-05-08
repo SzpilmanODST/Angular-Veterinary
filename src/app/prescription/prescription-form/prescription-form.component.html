@@ -1,0 +1,62 @@
+<h2 class="mb-5">Prescripcion médica</h2>
+
+<div class="w-50 mx-auto">
+
+    <div class="border rounded p-3">
+        <div class="d-flex flex-row">
+            <p class="me-2">
+                <b>Día y hora:</b>
+            </p>
+            <p>{{ prescription?.dayAndHour }}</p>
+        </div>
+        <div class="d-flex flex-row">
+            <p class="me-2">
+                <b>Dueño:</b>
+            </p>
+            <p>{{ prescription?.petOwner?.name + " " + prescription?.petOwner?.lastName }}</p>
+        </div>
+
+        @if(form) {
+
+            <form [formGroup]="form" (ngSubmit)="save()">
+                <div class="mb-3">
+                    <label for="pet" class="mb-1 form-label">Mascota</label>
+                    <select name="pet" id="pet" class="form-select" (click)="findPetsByPetOwner()" formControlName="pet">
+                        <option disabled selected hidden>-- Seleccionar mascota --</option>
+                        @if(petOwner) {
+                            <!-- <ng-select formControlName="pet" [items]="petOwner.pets" bindLabel="name" bindValue="id"></ng-select> -->
+                            @for(pet of petOwner.pets; track pet.id) {
+                                <option [value]="pet.id" ngDefaultControl>{{pet.name}}</option>
+                            } 
+                        }
+                    </select>
+                </div>
+
+                <div class="mb-3">
+                    <label for="doctor" class="mb-1 form-label">Doctor</label>
+                    <select name="doctor" id="doctor" class="form-select" formControlName="doctor">
+                        <option disabled selected hidden>-- Seleccionar doctor --</option>
+                        @for (doctor of doctors; track doctor.id) {
+                            <option [value]="doctor.id" ngDefaultControl>{{doctor.name + " " + doctor.lastName}}</option> 
+                        }
+                    </select>
+                </div>
+
+                <div class="mb-3">
+                    <label for="ailment" class="mb-1 form-label">Indicaciones</label>
+                    <textarea class="form-control" id="ailment" rows="3" formControlName="ailment"></textarea>
+                </div>
+
+                <div class="text-end">
+                    <button type="submit" class="btn btn-light me-3" routerLink="/prescriptionList">
+                        Cancelar
+                    </button>
+            
+                    <button class="btn btn-primary">
+                        Guardar cambios
+                    </button>
+                </div>
+            </form>
+        }
+    </div>
+</div>

@@ -1,0 +1,75 @@
+<h2 class="mb-5">
+    @if(doctor) {
+        Editar doctor
+    } @else {
+        Registrar doctor
+    }
+</h2>
+
+<div class="w-50 mx-auto">
+
+    @if(form) {
+
+        @if(errors.length) {
+            <div class="alert alert-danger">
+                <ul>
+                    @for (error of errors; track error) {
+                        <li>{{ error }}</li>
+                    }
+                </ul>
+            </div>
+        }
+
+        <form [formGroup]="form" (ngSubmit)="save()" class="border rounded p-3">
+            <div class="mb-3">
+                <label for="name" class="mb-1 form-label">Nombre</label>
+                <input class="form-control" id="name" name="name" type="text" placeholder="Escribir nombre" formControlName="name">
+
+                @if(form.get('name')?.hasError('required')) {
+                    <p class="invalid-feedback d-block">El campo nombre es obligatorio</p>
+                }
+            </div>
+
+            <div class="mb-3">
+                <label for="lastName" class="mb-1 form-label">Apellido</label>
+                <input class="form-control" id="lastName" name="lastName" type="text" placeholder="Escribir apellido" formControlName="lastName">
+
+                @if(form.get('lastName')?.hasError('required')) {
+                    <p class="invalid-feedback d-block">El campo apellido es obligatorio</p>
+                }
+            </div>
+
+            <div class="mb-3">
+                <label for="cellphone" class="mb-1 form-label">Celular</label>
+                <input class="form-control" id="cellphone" name="cellphone" type="text" placeholder="Escribir numero de celular" formControlName="cellphone">
+
+                @if(form.get('cellphone')?.hasError('required')) {
+                    <p class="invalid-feedback d-block">El campo celular es obligatorio</p>
+                }
+            </div>
+
+            <div class="mb-3">
+                <label for="professionalId" class="mb-1 form-label">Cedula profesional</label>
+                <input class="form-control" id="professionalId" name="professionalId" type="text" placeholder="Escribir cedula profesional" formControlName="professionalId">
+
+                @if(form.get('professionalId')?.hasError('required')) {
+                    <p class="invalid-feedback d-block">El campo cedula profesional es obligatorio</p>
+                }
+            </div>
+
+            <div class="text-end">
+                <button type="submit" class="btn btn-light me-3" routerLink="/doctorList">
+                    Cancelar
+                </button>
+    
+                <button class="btn btn-primary">
+                    @if(doctor) {
+                        Editar doctor
+                    } @else {
+                        Registrar doctor
+                    }
+                </button>
+            </div>
+        </form>
+    }
+</div>

@@ -1,0 +1,50 @@
+<h1>Mascotas</h1>
+
+<div class="text-end my-3">
+    <button class="btn btn-primary" routerLink="/newPet">
+        Registrar mascota
+    </button>
+</div>
+
+<table class="table table-striped table-bordered">
+    <thead>
+        <tr>
+            <th>id</th>
+            <th>Nombre</th>
+            <th>Genero</th>
+            <th>Especie</th>
+            <th>Raza</th>
+            <th>Edad (años)</th>
+            <th>Peso (kg)</th>
+            <th>Dueño</th>
+            <th>Prescripciones</th>
+            <th></th>
+        </tr>
+    </thead>
+
+    <tbody>
+        @for (pet of pets; track pet.id) {
+            <tr>
+                <td> {{pet.id}} </td>
+                <td> {{pet.name}} </td>
+                <td> {{pet.gender}} </td>
+                <td> {{pet.species}} </td>
+                <td> {{pet.breed}} </td>
+                <td> {{pet.age}} </td>
+                <td> {{pet.weight}} </td>
+                <td> {{pet.petOwner.name + " " + pet.petOwner.lastName}} </td>
+                <td><a [routerLink]="['/', pet.id, 'detailsPet']" class="btn btn-secondary">Ver</a></td>
+                <td>
+                    <div class="text-end">
+                        <button class="btn btn-primary mx-3" [routerLink]="['/', pet.id, 'editPet']">
+                            Editar
+                        </button>
+                        <button class="btn btn-danger" (click)="deletePet(pet)">
+                            Eliminar
+                        </button>
+                    </div>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

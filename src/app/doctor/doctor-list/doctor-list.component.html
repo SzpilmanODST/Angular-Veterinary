@@ -1,0 +1,44 @@
+<h1>Doctores</h1>
+
+<div class="text-end my-3">
+    <button class="btn btn-primary" routerLink="/newDoctor">
+        Registrar doctor
+    </button>
+</div>
+
+<table class="table table-bordered table-striped">
+    <thead>
+        <tr>
+            <th>id</th>
+            <th>Nombre</th>
+            <th>Apellido</th>
+            <th>Celular</th>
+            <th>Cédula profesional</th>
+            <th>Prescripciones</th>
+            <th></th>
+        </tr>
+    </thead>
+
+    <tbody>
+        @for (doctor of doctors; track doctor.id) {
+            <tr>
+                <td>{{ doctor.id }}</td>
+                <td>{{ doctor.name }}</td>
+                <td>{{ doctor.lastName }}</td>
+                <td>{{ doctor.cellphone }}</td>
+                <td>{{ doctor.professionalId }}</td>
+                <td><a [routerLink]="['/', doctor.id, 'detailsDoctor']" class="btn btn-secondary">Ver</a></td>
+                <td>
+                    <div class="text-end">
+                        <button class="btn btn-primary mx-3" [routerLink]="['/', doctor.id, 'editDoctor']">
+                            Editar 
+                        </button>
+                        <button class="btn btn-danger" (click)="deleteDoctor(doctor)">
+                            Eliminar 
+                        </button>
+                    </div>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

@@ -1,0 +1,52 @@
+<h2 class="mb-5">Detalles de doctor</h2>
+
+<div>
+    <div class="d-flex flex-row">
+        <p class="me-2">
+            <b>Nombre:</b>
+        </p>
+        <p>{{ doctor?.name }}</p>
+    </div>
+    <div class="d-flex flex-row">
+        <p class="me-2">
+            <b>Apellido:</b>
+        </p>
+        <p>{{ doctor?.lastName }}</p>
+    </div>
+    <div class="d-flex flex-row">
+        <p class="me-2">
+            <b>Celular:</b>
+        </p>
+        <p>{{ doctor?.cellphone }}</p>
+    </div>
+    <div class="d-flex flex-row">
+        <p class="me-2">
+            <b>Cédula profesional:</b>
+        </p>
+        <p>{{ doctor?.professionalId }}</p>
+    </div>
+    <div class="d-flex flex-row">
+        <p class="me-2">
+            <b>Prescripciones:</b>
+        </p>
+    </div>
+</div>
+
+<table class="table table-striped table-bordered w-50">
+    <thead>
+        <tr>
+            <th>id</th>
+            <th>Dia y hora</th>
+            <th>Detalles</th>
+        </tr>
+    </thead>
+    <tbody>
+        @for (prescription of doctor?.prescriptions; track prescription.id) {
+            <tr>
+                <td>{{ prescription.id }}</td>
+                <td>{{ prescription.dayAndHour }}</td>
+                <td><a [routerLink]="['/', prescription?.id, 'detailsPrescription']" class="btn btn-secondary">Ver</a></td>
+            </tr>
+        }
+    </tbody>
+</table>

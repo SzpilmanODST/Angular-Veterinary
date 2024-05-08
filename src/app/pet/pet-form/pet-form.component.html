@@ -1,0 +1,103 @@
+<h2>
+    @if(pet) {
+        Actualizar mascota
+    } @else {
+        Registrar mascota
+    }
+</h2>
+
+<div class="w-50 mx-auto">
+
+    @if(form) {
+
+        @if(errors.length) {
+            <div class="alert alert-danger">
+                <ul>
+                    @for (error of errors; track error) {
+                        <li>{{ error }}</li>
+                    }
+                </ul>
+            </div>
+        }
+
+        <form [formGroup]="form" (ngSubmit)="save()" class="border rounded p-3">
+            <div class="mb-3">
+                <label for="name" class="mb-1 form-label">Nombre</label>
+                <input id="name" name="name" type="text" placeholder="Escribir nombre" class="form-control" formControlName="name">
+
+                @if(form.get('name')?.hasError('required')) {
+                    <p class="invalid-feedback d-block">El campo nombre es obligatorio</p>
+                }
+            </div>
+
+            <div class="mb-3">
+                <label for="gender" class="mb-1 form-label">Genero</label>
+                <input id="gender" name="gender" type="text" placeholder="Escribir genero" class="form-control" formControlName="gender">
+
+                @if(form.get('gender')?.hasError('required')) {
+                    <p class="invalid-feedback d-block">El campo genero es obligatorio</p>
+                }
+            </div>
+
+            <div class="mb-3">
+                <label for="species" class="mb-1 form-label">Especie</label>
+                <input id="species" name="species" type="text" placeholder="Escribir especie" class="form-control" formControlName="species">
+
+                @if(form.get('species')?.hasError('required')) {
+                    <p class="invalid-feedback d-block">El campo especie es obligatorio</p>
+                }
+            </div>
+
+            <div class="mb-3">
+                <label for="breed" class="mb-1 form-label">Raza</label>
+                <input id="breed" name="breed" type="text" placeholder="Escribir raza" class="form-control" formControlName="breed">
+
+                @if(form.get('breed')?.hasError('required')) {
+                    <p class="invalid-feedback d-block">El campo raza es obligatorio</p>
+                }
+            </div>
+
+            <div class="mb-3">
+                <label for="age" class="mb-1 form-label">Edad (años)</label>
+                <input id="age" name="age" type="number" placeholder="Escribir edad" class="form-control" formControlName="age">
+
+                @if(form.get('age')?.hasError('required')) {
+                    <p class="invalid-feedback d-block">El campo edad es obligatorio</p>
+                }
+            </div>
+
+            <div class="mb-3">
+                <label for="weight" class="mb-1 form-label">Peso (kg)</label>
+                <input id="weight" name="weight" type="number" placeholder="Escribir peso" class="form-control" formControlName="weight">
+
+                @if(form.get('weight')?.hasError('required')) {
+                    <p class="invalid-feedback d-block">El campo peso es obligatorio</p>
+                }
+            </div>
+
+            <div class="col-md-6">
+                <label for="id" class="mb-1 form-label">Dueño de mascota</label>
+                <ng-select formControlName="petOwner" [items]="petOwners" bindLabel="cellphone" bindValue="id" placeholder="-- Buscar numero telefonico --"></ng-select>
+
+                @if(form.get('petOwner')?.hasError('required')) {
+                    <p class="invalid-feedback d-block">El campo dueño de mascota es obligatorio</p>
+                }
+            </div> 
+
+            <div class="text-end">
+                <button type="submit" class="btn btn-light me-3" routerLink="/petList">
+                    Cancelar
+                </button>
+        
+                <button class="btn btn-primary">
+                    @if(pet) {
+                        Actualizar
+                    } @else {
+                        Registrar mascota
+                    } 
+                </button>
+            </div>
+        </form>
+    }
+
+</div>
